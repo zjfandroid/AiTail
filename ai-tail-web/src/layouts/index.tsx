@@ -14,6 +14,13 @@ import {
 import { GlobalProvider } from './ConfigProvider';
 import { useEffect } from 'react';
 
+const _pow = Math.pow;
+Math.pow = function (base, exp) {
+  if (typeof base === 'bigint') base = Number(base);
+  if (typeof exp === 'bigint') exp = Number(exp);
+  return _pow(base, exp);
+};
+
 export default function Layout() {
   useEffect(() => {
     // 当屏幕尺寸小于768px时，跳转到移动端页面
