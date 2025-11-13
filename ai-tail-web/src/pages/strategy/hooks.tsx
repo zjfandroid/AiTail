@@ -63,7 +63,7 @@ const useWeb3 = (props: IUseWeb3) => {
       return
     }
     try {
-      const amountInSmallestUnit = Math.round(amount * 10 ** 6);
+      const amountInSmallestUnit = Math.round(amount * 10 ** Number(6));
       if (isNaN(amountInSmallestUnit)) {
         throw new Error('Invalid amount value');
       }
@@ -107,7 +107,7 @@ const useWeb3 = (props: IUseWeb3) => {
       return
     }
     try {
-      const amountInSmallestUnit = Math.round(amount * 10 ** 6);
+      const amountInSmallestUnit = Math.round(amount * 10 ** Number(6));
       if (isNaN(amountInSmallestUnit)) {
         throw new Error('Invalid amount value');
       }
