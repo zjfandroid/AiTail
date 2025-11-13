@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/drift-agent/(.*)",
+      "destination": "http://52.197.196.213:8888/drift-agent/$1"
+    }
+  ]
+}
