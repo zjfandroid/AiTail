@@ -5,6 +5,21 @@ export default defineConfig({
   // jsMinifierOptions: {
   //   target: ['chrome80', 'es2020'], // 提升目标环境支持级别
   // },
+  headScripts: [
+    {
+      content: `
+        (function () {
+          const _pow = Math.pow;
+          Math.pow = function (base, exp) {
+            if (typeof base === 'bigint') base = Number(base);
+            if (typeof exp === 'bigint') exp = Number(exp);
+            return _pow(base, exp);
+          };
+          console.info('[bigint-patch] >>> Math.pow patched early');
+        })();
+      `,
+    },
+  ],
   legacy: {},
   targets: { chrome: 80 }, // 根据实际需求调整
   routes: [
