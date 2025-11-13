@@ -9,15 +9,18 @@ export default defineConfig({
     {
       content: `
         (function () {
-          const _pow = Math.pow;
-          Math.pow = function (base, exp) {
-            if (typeof base === 'bigint') base = Number(base);
-            if (typeof exp === 'bigint') exp = Number(exp);
-            return _pow(base, exp);
-          };
-          console.info('[bigint-patch] >>> Math.pow patched early');
+          const _Math = Math;
+          const safeOps = ['abs', 'sin', 'cos', 'pow', 'sqrt', 'round', 'floor', 'ceil'];
+          for (const fn of safeOps) {
+            const orig = _Math[fn];
+            _Math[fn] = function (...args) {
+              args = args.map(a => (typeof a === 'bigint' ? Number(a) : a));
+              return orig.apply(_Math, args);
+            };
+          }
+          console.info('[bigint-patch] >>> global Math safeOps patched');
         })();
-      `,
+      `
     },
   ],
   legacy: {},
